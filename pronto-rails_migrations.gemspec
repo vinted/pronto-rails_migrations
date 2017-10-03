@@ -1,17 +1,16 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "pronto/rails_migrations/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "pronto-rails_migrations"
-  spec.version       = Pronto::RailsMigrations::VERSION
+  spec.version       = '0.1.0'
   spec.authors       = ["Tomas Varneckas"]
   spec.email         = ["t.varneckas@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Validate migration and application code change seperation}
+  spec.description   = %q{This pronto runner warns when migrations are run and application code is changed at the same time}
+  spec.homepage      = "https://github.com/tomasv/pronto-rails_migrations"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -29,6 +28,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency('pronto', '~> 0.9.0')
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
