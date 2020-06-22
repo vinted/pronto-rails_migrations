@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "pronto-rails_migrations"
-  spec.version       = '0.10.1'
+  spec.version       = '0.10.2'
   spec.authors       = ["Tomas Varneckas"]
   spec.email         = ["t.varneckas@gmail.com"]
 
