@@ -1,20 +1,19 @@
 module Pronto
   class RailsMigrations < Runner
     def run
-      if migration_patches? && other_patches?
-        migration_patches.take(1).map do |patch|
-          Message.new(
-            patch.delta.new_file[:path],
-            nil,
-            :warning,
-            "Run migrations in a separate PR from application code changes.",
-            nil,
-            self.class
-          )
-        end
-      else
-        []
+      return [] unless migration_patches?
+
+      messages = []
+
+      if other_patches?
+        patch = migration_patches.first
+        messages << message(
+          patch.delta.new_file[:path],
+          'Run migrations in a separate PR from application code changes.'
+        )
       end
+
+      messages + bad_structure_sql_messages
     end
 
     private
@@ -29,6 +28,48 @@ module Pronto
 
     def other_patches?
       @patches.reject { |patch| migration_patch?(patch) }.any?
+    end
+
+    def bad_structure_sql_messages
+      patch = structure_sql_patches.first
+      return false unless patch
+
+      path = patch.delta.new_file[:path]
+      structure_sql = File.read(patch.new_file_full_path)
+      inserts = structure_sql.split("\n").grep(/\('\d+'\)/)
+      unordered_inserts = (inserts.sort != inserts)
+
+      *all_but_tail, tail = inserts
+      bad_semicolons = all_but_tail.any? { |line| line.end_with?(';') } || !tail.end_with?(';')
+
+      bad_ending = structure_sql[-4, 4] !~ /[^\n]\n\n\n/
+
+      messages = []
+
+      if unordered_inserts
+        messages << message(
+          path,
+          '`schema_migrations` insert values are not ordered by timestamp.'
+        )
+      end
+      if bad_semicolons
+        messages << message(
+          path,
+          '`schema_migrations` inserts must end with comma (`,`), ' \
+          'last insert must end with semicolon (`;`).'
+        )
+      end
+      messages << message(path, '`db/structure.sql` must end with 2 empty lines.') if bad_ending
+
+      messages
+    end
+
+    def message(path, text)
+      Message.new(path, nil, :warning, text, nil, self.class)
+    end
+
+    def structure_sql_patches
+      @patches.select { |patch| patch.new_file_full_path.to_s =~ /structure\.sql/ }
     end
 
     def migration_patch?(patch)
