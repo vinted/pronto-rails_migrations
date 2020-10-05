@@ -32,7 +32,7 @@ module Pronto
 
     def bad_structure_sql_messages
       patch = structure_sql_patches.first
-      return false unless patch
+      return [] unless patch
 
       structure_sql = File.read(patch.new_file_full_path)
       inserts = structure_sql.split("\n").grep(/\('\d+'\)/)
