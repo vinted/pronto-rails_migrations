@@ -5,7 +5,7 @@ require 'pronto/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "pronto-rails_migrations"
-  spec.version       = Pronto::VERSION
+  spec.version       = Pronto::RailsMigrations::VERSION
   spec.authors       = ["Vinted"]
   spec.email         = ["backend@vinted.com"]
 
