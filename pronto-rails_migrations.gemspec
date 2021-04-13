@@ -1,12 +1,13 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'pronto/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "pronto-rails_migrations"
-  spec.version       = '0.10.3'
-  spec.authors       = ["Tomas Varneckas"]
-  spec.email         = ["t.varneckas@gmail.com"]
+  spec.version       = Pronto::RailsMigrations::VERSION
+  spec.authors       = ["Vinted"]
+  spec.email         = ["backend@vinted.com"]
 
   spec.summary       = %q{Validate migration and application code change seperation}
   spec.description   = %q{This pronto runner warns when migrations are run and application code is changed at the same time}
@@ -22,6 +23,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency('pronto', '>= 0.10.0')
 
-  spec.add_development_dependency "bundler", ">= 1.15"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 12.0"
 end
