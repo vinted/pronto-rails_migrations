@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'pronto/version'
+require 'pronto/rails_migrations/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "pronto-rails_migrations"
-  spec.version       = Pronto::RailsMigrations::VERSION
+  spec.version       = Pronto::RAILS_MIGRATIONS_VERSION
   spec.authors       = ["Vinted"]
   spec.email         = ["backend@vinted.com"]
 
