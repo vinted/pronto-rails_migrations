@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Validate migration and application code change seperation}
   spec.description   = %q{This pronto runner warns when migrations are run and application code is changed at the same time}
-  spec.homepage      = "https://github.com/tomasv/pronto-rails_migrations"
+  spec.homepage      = "https://github.com/vinted/pronto-rails_migrations"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
