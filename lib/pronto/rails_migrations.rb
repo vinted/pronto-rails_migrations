@@ -9,7 +9,8 @@ module Pronto
         patch = migration_patches.first
         messages << message(
           patch,
-          'Run migrations in a separate PR from application code changes.'
+          'Run migrations in a separate PR from application code changes.',
+          level: :warning
         )
       end
 
@@ -63,10 +64,10 @@ module Pronto
       messages
     end
 
-    def message(patch, text)
+    def message(patch, text, level: :error)
       path = patch.delta.new_file[:path]
       line = patch.added_lines.first
-      Message.new(path, line, :warning, text, nil, self.class)
+      Message.new(path, line, level, text, nil, self.class)
     end
 
     def structure_sql_patches
