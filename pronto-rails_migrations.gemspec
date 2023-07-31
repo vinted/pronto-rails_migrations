@@ -21,10 +21,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency('pronto', '>= 0.10.0')
-  spec.add_dependency('faraday', '~> 1.10.0')
-  spec.add_dependency('multipart-post', '~> 2.1.1')
-  spec.add_dependency('sawyer', '~> 0.8.2')
+  spec.add_dependency('pronto', '>= 0.11.1')
+  spec.add_dependency('faraday', '>= 1.10.3')
+  spec.add_dependency('multipart-post', '>= 2.1.1')
+  spec.add_dependency('sawyer', '>= 0.9')
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 12.0"
