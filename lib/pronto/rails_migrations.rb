@@ -10,7 +10,7 @@ module Pronto
         messages << message(
           patch,
           'Run migrations in a separate PR from application code changes.',
-          level: :warning
+          level: :error
         )
       end
 
