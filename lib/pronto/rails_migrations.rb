@@ -66,7 +66,7 @@ module Pronto
 
     def message(patch, text, level: :error)
       path = patch.delta.new_file[:path]
-      line = patch.added_lines.first
+      line = patch.added_lines.last
       Message.new(path, line, level, text, nil, self.class)
     end
 
