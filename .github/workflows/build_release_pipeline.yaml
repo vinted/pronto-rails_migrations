@@ -1,7 +1,7 @@
 name: Build and release ruby gem
 
 on:
-  pull_request: 
+  pull_request:
     branches: [ master ]
   push:
   workflow_dispatch:
@@ -9,12 +9,12 @@ on:
 jobs:
   build-release-pipeline:
     runs-on: ubuntu-latest
-    container: ruby:2.7.2
+    container: ruby:3.0.4
     steps:
       - uses: actions/checkout@v2
       - name: Setup
         run: |
-          apt-get update -y && apt-get install -y --no-install-recommends cmake=3.13.4-1
+          apt-get update -y && apt-get install -y --no-install-recommends cmake
           gem install bundler
           bundle install
 
