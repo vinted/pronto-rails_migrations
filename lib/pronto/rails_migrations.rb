@@ -42,7 +42,7 @@ module Pronto
       *all_but_tail, tail = inserts
       bad_semicolons = all_but_tail.any? { |line| line.end_with?(';') } || !tail.end_with?(';')
 
-      bad_ending = structure_sql[-2, 2] !~ /[^\n]\n/
+      bad_ending = structure_sql[-4, 4] !~ /[^\n]\n\n\n/
 
       messages = []
 
@@ -59,7 +59,7 @@ module Pronto
           'last insert must end with semicolon (`;`).'
         )
       end
-      messages << message(patch, '`db/structure.sql` must end without extra empty lines.') if bad_ending
+      messages << message(patch, '`db/structure.sql` must end with 2 empty lines.') if bad_ending
 
       messages
     end
