@@ -1,3 +1,3 @@
 module Pronto
-  RAILS_MIGRATIONS_VERSION = '0.15.0'
+  RAILS_MIGRATIONS_VERSION = '0.16.0'
 end
