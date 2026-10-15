@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('multipart-post', '>= 2.1.1')
   spec.add_dependency('sawyer', '>= 0.9')
 
+  spec.add_development_dependency "base64"
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 12.0"
 end

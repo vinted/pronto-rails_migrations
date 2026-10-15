@@ -42,8 +42,6 @@ module Pronto
       *all_but_tail, tail = inserts
       bad_semicolons = all_but_tail.any? { |line| line.end_with?(';') } || !tail.end_with?(';')
 
-      bad_ending = structure_sql[-4, 4] !~ /[^\n]\n\n\n/
-
       messages = []
 
       if unordered_inserts
@@ -59,7 +57,7 @@ module Pronto
           'last insert must end with semicolon (`;`).'
         )
       end
-      messages << message(patch, '`db/structure.sql` must end with 2 empty lines.') if bad_ending
+      messages << message(patch, bad_ending_message) if bad_ending?(structure_sql)
 
       messages
     end
@@ -77,6 +75,19 @@ module Pronto
     def migration_patch?(patch)
       path = patch.new_file_full_path.to_s
       /db.(schema.rb|structure.sql|migrate)/ =~ path
+    end
+
+    def bad_ending?(structure_sql)
+      !structure_sql.match?(/[^\n]\n{#{expected_empty_lines + 1}}\z/)
+    end
+
+    def bad_ending_message
+      "`db/structure.sql` must end with #{expected_empty_lines} empty lines."
+    end
+
+    def expected_empty_lines
+      version = Gem.loaded_specs['activerecord']&.version
+      version && version < Gem::Version.new('7.1') ? 2 : 1
     end
   end
 end
