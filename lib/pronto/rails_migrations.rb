@@ -64,8 +64,10 @@ module Pronto
 
     def message(patch, text, level: :error)
       path = patch.delta.new_file[:path]
-      line = patch.added_lines.last
-      Message.new(path, line, level, text, nil, self.class)
+      line = patch.added_lines.last || patch.lines.last
+      commit_sha = line&.commit_sha || patch.repo.head_commit_sha
+
+      Message.new(path, line, level, text, commit_sha, self.class)
     end
 
     def structure_sql_patches
