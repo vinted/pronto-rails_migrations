@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pronto-rails_migrations (0.17.2)
+    pronto-rails_migrations (0.17.3)
       pronto (>= 0.11.1)
 
 GEM
