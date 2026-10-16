@@ -64,7 +64,7 @@ module Pronto
 
     def message(patch, text, level: :error)
       path = patch.delta.new_file[:path]
-      line = patch.added_lines.last || patch.lines.last
+      line = patch.added_lines.last
       commit_sha = line&.commit_sha || patch.repo.head_commit_sha
 
       Message.new(path, line, level, text, commit_sha, self.class)
